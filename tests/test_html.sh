@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-FILE="tests/index.html"
+FILE="site/index.html"
 
 if ! grep -q "<title>" "$FILE"; then
   echo "❌ HTML missing <title>"
