@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-FILE="nginx/index.html"
+FILE="tests/index.html"
 
 if ! grep -q "<title>" "$FILE"; then
   echo "❌ HTML missing <title>"
