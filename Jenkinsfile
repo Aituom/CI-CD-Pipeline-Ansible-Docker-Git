@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Aituom/CI-CD-Pipeline-Ansible-Docker-Git'
+                git branch: 'main', url: 'https://github.com/Aituom/CI-CD-Pipeline-Ansible-Docker-Git'
             }
         }
 
