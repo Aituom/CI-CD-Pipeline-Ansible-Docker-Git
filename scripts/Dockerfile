@@ -1,6 +1,6 @@
 # Dockerfile
 FROM nginx:latest
 
-COPY site/index.html /usr/share/nginx/html
+COPY site/index.html /usr/share/nginx/html/index.html
 
 EXPOSE 80
