@@ -1,0 +1,37 @@
+- name: Deploy nginx container from local image
+  hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    image_name: "myapp/nginx:latest"
+    container_name: "nginx-container"
+    host_port: "8081"
+    container_port: "80"
+
+  tasks:
+    - name: Ensure image is present (will attempt local image; if not present, fail)
+      ansible.builtin.shell: |
+        docker image inspect {{ image_name }} > /dev/null 2>&1 || echo "MISSING"
+      register: image_check
+      changed_when: false
+
+    - name: Fail if image is not present (build must run before ansible)
+      ansible.builtin.fail:
+        msg: "Image {{ image_name }} not found. Run build step first."
+      when: image_check.stdout.find("MISSING") != -1
+
+    - name: Ensure container is absent (if exists remove)
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        state: absent
+      ignore_errors: true
+
+    - name: Run container from built image
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}"
+        state: started
+        restart_policy: always
+        published_ports:
+          - "{{ host_port }}:{{ container_port }}"
+      become: true
