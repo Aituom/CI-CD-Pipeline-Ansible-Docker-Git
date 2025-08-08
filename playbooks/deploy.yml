@@ -9,7 +9,7 @@
         state: started
         restart_policy: always
         published_ports:
-          - "8080:80"
+          - "8081:80"
         volumes:
           - "{{ playbook_dir }}/../site:/usr/share/nginx/html:ro" 
 
