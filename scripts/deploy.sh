@@ -1,3 +1,7 @@
 #!/bin/bash
-docker rm -f nginx-container 2>/dev/null
-docker run -d --name nginx-container -p 8081:80 my-nginx-image
+set -e
+
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$PROJECT_ROOT"
+
+ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/deploy.yml
