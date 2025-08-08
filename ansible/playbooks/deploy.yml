@@ -3,7 +3,7 @@
   connection: local
   become: yes
   vars:
-    image_name: "myapp/nginx:latest"
+    image_name: "my-nginx-image"
     container_name: "nginx-container"
     host_port: "8081"
     container_port: "80"
